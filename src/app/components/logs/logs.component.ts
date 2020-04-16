@@ -9,14 +9,27 @@ import { LogsService } from 'src/app/services/logs.service';
 })
 export class LogsComponent implements OnInit {
   logs: Log[];
+  selectedLog: Log;
+  loaded: boolean = false;
+
   constructor(private logsService: LogsService) {}
 
   ngOnInit(): void {
-    this.logsService.getLogs().subscribe((logs) => (this.logs = logs));
+    this.logsService.stateClear.subscribe((clear) => {
+      if (clear) {
+        this.selectedLog = { id: null, text: null, date: null };
+      }
+    });
+
+    this.logsService.getLogs().subscribe((logs) => {
+      this.logs = logs;
+      this.loaded = true;
+    });
   }
 
   onSelect(log: Log) {
     this.logsService.setFormLog(log);
+    this.selectedLog = log;
   }
 
   onDelete(log: Log) {
