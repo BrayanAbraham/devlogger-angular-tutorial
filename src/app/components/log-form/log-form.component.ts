@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { LogsService } from 'src/app/services/logs.service';
 
 @Component({
-  selector: 'app-log-form',
-  templateUrl: './log-form.component.html',
-  styleUrls: ['./log-form.component.css'],
+    selector: 'app-log-form',
+    templateUrl: './log-form.component.html',
+    styleUrls: ['./log-form.component.css'],
+    standalone: false
 })
 export class LogFormComponent implements OnInit {
   id: string;
@@ -12,7 +13,10 @@ export class LogFormComponent implements OnInit {
   date: any;
   isNew: boolean = true;
 
-  constructor(private logsService: LogsService) {}
+  constructor(private logsService: LogsService) {
+    this.id = '';
+    this.text = '';
+  }
 
   ngOnInit(): void {
     this.logsService.selectedLog.subscribe((log) => {
@@ -49,19 +53,20 @@ export class LogFormComponent implements OnInit {
 
   clearState() {
     this.isNew = true;
-    this.text = null;
-    this.id = null;
+    this.text = '';
+    this.id = '';
     this.date = null;
-    this.logsService.clearState()
+    this.logsService.clearState();
   }
 
   generateID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (
-      c
-    ) {
-      var r = (Math.random() * 16) | 0,
-        v = c == 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        var r = (Math.random() * 16) | 0,
+          v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
   }
 }

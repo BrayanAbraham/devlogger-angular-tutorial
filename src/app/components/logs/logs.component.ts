@@ -3,13 +3,18 @@ import { Log } from 'src/app/models/Log';
 import { LogsService } from 'src/app/services/logs.service';
 
 @Component({
-  selector: 'app-logs',
-  templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.css'],
+    selector: 'app-logs',
+    templateUrl: './logs.component.html',
+    styleUrls: ['./logs.component.css'],
+    standalone: false
 })
 export class LogsComponent implements OnInit {
-  logs: Log[];
-  selectedLog: Log;
+  logs: Log[] = [];
+  selectedLog: Log = {
+    id: '',
+    text: '',
+    date: null,
+  };
   loaded: boolean = false;
 
   constructor(private logsService: LogsService) {}
@@ -17,12 +22,12 @@ export class LogsComponent implements OnInit {
   ngOnInit(): void {
     this.logsService.stateClear.subscribe((clear) => {
       if (clear) {
-        this.selectedLog = { id: null, text: null, date: null };
+        this.selectedLog = { id: '', text: '', date: null };
       }
     });
 
     this.logsService.getLogs().subscribe((logs) => {
-      this.logs = logs;
+      this.logs = logs ? logs : [];
       this.loaded = true;
     });
   }
