@@ -1,4 +1,4 @@
-<ul class="list-group" *ngIf="loaded && logs?.length > 0">
+<ul class="list-group" *ngIf="loaded">
   <li
     *ngFor="let log of logs"
     [class.list-group-item-secondary]="selectedLog === log"
