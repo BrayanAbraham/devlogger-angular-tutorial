@@ -8,8 +8,12 @@ import { LogsService } from 'src/app/services/logs.service';
   styleUrls: ['./logs.component.css'],
 })
 export class LogsComponent implements OnInit {
-  logs: Log[];
-  selectedLog: Log;
+  logs: Log[] = [];
+  selectedLog: Log = {
+    id: '',
+    text: '',
+    date: null,
+  };
   loaded: boolean = false;
 
   constructor(private logsService: LogsService) {}
@@ -17,12 +21,12 @@ export class LogsComponent implements OnInit {
   ngOnInit(): void {
     this.logsService.stateClear.subscribe((clear) => {
       if (clear) {
-        this.selectedLog = { id: null, text: null, date: null };
+        this.selectedLog = { id: '', text: '', date: null };
       }
     });
 
     this.logsService.getLogs().subscribe((logs) => {
-      this.logs = logs;
+      this.logs = logs ? logs : [];
       this.loaded = true;
     });
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Log } from '../models/Log';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Log } from '../models/Log';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,8 @@ export class LogsService {
   logs: Log[];
 
   private logSource = new BehaviorSubject<Log>({
-    id: null,
-    text: null,
+    id: '',
+    text: '',
     date: null,
   });
 
@@ -36,10 +36,11 @@ export class LogsService {
   }
 
   getLogs(): Observable<Log[]> {
-    if (localStorage.getItem('logs') === null) {
+    const logs = localStorage.getItem('logs');
+    if (logs === null) {
       this.logs = [];
     } else {
-      this.logs = JSON.parse(localStorage.getItem('logs'));
+      this.logs = JSON.parse(logs);
     }
     return of(this.logs.sort((a, b) => b.date - a.date));
   }
