@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { LogsService } from 'src/app/services/logs.service';
 
 @Component({
     selector: 'app-log-form',
     templateUrl: './log-form.component.html',
     styleUrls: ['./log-form.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LogFormComponent implements OnInit {
