@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Log } from 'src/app/models/Log';
 import { LogsService } from 'src/app/services/logs.service';
 
@@ -6,6 +6,7 @@ import { LogsService } from 'src/app/services/logs.service';
     selector: 'app-logs',
     templateUrl: './logs.component.html',
     styleUrls: ['./logs.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LogsComponent implements OnInit {
